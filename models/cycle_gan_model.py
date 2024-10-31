@@ -68,6 +68,7 @@ class CycleGANModel(BaseModel):
         # visual_names_B = ['real_B', 'fake_A', 'rec_B']
 
         visual_names_A = ['fake_B']
+        visual_names_B = ['fake_A']
         if self.isTrain and self.opt.lambda_identity > 0.0:  # if identity loss is used, we also visualize idt_B=G_A(B) ad idt_A=G_A(B)
             visual_names_A.append('idt_B')
             visual_names_B.append('idt_A')
@@ -213,3 +214,13 @@ class CycleGANModel(BaseModel):
         self.backward_D_A()      # calculate gradients for D_A
         self.backward_D_B()      # calculate graidents for D_B
         self.optimizer_D.step()  # update D_A and D_B's weights
+        # 获取并返回损失值
+        loss_G = self.loss_G.item()
+        loss_D_A = self.loss_D_A.item()
+        loss_D_B = self.loss_D_B.item()
+    
+        return {
+            'loss_G': loss_G,
+            'loss_D_A': loss_D_A,
+            'loss_D_B': loss_D_B
+        }

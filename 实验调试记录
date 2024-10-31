@@ -1,0 +1,21 @@
+1.虚拟环境pt120：新建虚拟环境pt112：python3.9 torch1.12.0 cuda11.3
+pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113
+
+2.（3）使用的数据集：Underwater-object-detection-dataset-main
+
+3.test运行
+python test.py --dataroot ./datasets/[YOUR-DATASETS] --name underwater --model cycle_gan
+（1）下载预训练权重，在checkpoints文件夹下新建underwater文件夹，将于训练权重放到其中
+（2）数据准备：参考readme新建文件夹；图片统一裁剪到512x512大小，不然会爆显存
+（4）运行python test.py --dataroot ./datasets/ --name underwater --model cycle_gan    成功
+
+4.train运行 
+python train.py --dataroot ./datasets/[YOUR-DATASETS] --name chinamm_train --model cycle_gan
+(1)出现错误AttributeError: 'dict' object has no attribute 'data'：看github修改记录
+(2)python train.py --dataroot ./datasets/ --name chinamm_train --model cycle_gan
+开始时间2024/10/30 15：30-->2024/10/31 16:00(大约24小时)， epoch 100， 训练数据为chinamm2019uw 
+（3）出现问题：
+FileNotFoundError: [Errno 2] No such file or directory: '/home/hzc/CodeRepository/UnderwaterEnhancement/DeepLearning/GAN/TACL/loss/1_loss.png'
+解决方法：在TACL文件夹下新建一个loss文件夹   
+
+4.目标检测方法暂时不运行，按后续需求做实验
